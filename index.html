@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Z-Fam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #ff2a2a;
+      --secondary: #ff6b6b;
+      --dark: #0a0a0a;
+      --light: #f8f8f8;
+      --accent: #ffd166;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--light);
+      overflow-x: hidden;
+      background-color: var(--dark);
+    }
+    
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(-45deg, #0a0a0a, #1a1a1a, #2a0a0a, #1a0a0a);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+    
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    /* Particles */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    /* Header */
+    header {
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 20px rgba(255, 42, 42, 0.3);
+    }
+    
+    .tagline {
+      font-weight: 300;
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 2rem;
+    }
+    
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 10;
+    }
+    
+    /* Profile Section */
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 4rem;
+    }
+    
+    .profile-pic {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 50px rgba(255, 42, 42, 0.5);
+      transition: all 0.5s ease;
+      margin-bottom: 2rem;
+    }
+    
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 70px rgba(255, 42, 42, 0.8);
+    }
+    
+    .bio {
+      max-width: 600px;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    
+    /* Social Links */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .social-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--light);
+      font-size: 1.8rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .social-btn.instagram { color: #E1306C; }
+    .social-btn.tiktok { color: #69C9D0; }
+    .social-btn.youtube { color: #FF0000; }
+    .social-btn.twitter { color: #1DA1F2; }
+    .social-btn.facebook { color: #4267B2; }
+    .social-btn.snapchat { color: #FFFC00; }
+    .social-btn.discord { color: #5865F2; }
+    
+    .social-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-5px);
+      background: var(--light);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+    }
+    
+    .social-btn:hover::before {
+      left: 100%;
+    }
+    
+    /* Subscribe Button */
+    .subscribe-btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 1.5rem 0 3rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(255, 42, 42, 0.3);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .subscribe-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(255, 42, 42, 0.5);
+    }
+    
+    .subscribe-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+    
+    .subscribe-btn:hover::before {
+      left: 100%;
+    }
+    
+    /* Gallery */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--primary);
+      margin: 1rem auto;
+    }
+    
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    
+    .gallery-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.5s ease;
+      cursor: pointer;
+      aspect-ratio: 1/1;
+    }
+    
+    .gallery-item img, .gallery-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(255, 42, 42, 0.4);
+    }
+    
+    .gallery-item:hover img, .gallery-item:hover video {
+      transform: scale(1.1);
+    }
+    
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
+    
+    /* Video Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .lightbox-content {
+      width: 80%;
+      max-width: 900px;
+      position: relative;
+    }
+    
+    .lightbox-content video {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 50px rgba(255, 42, 42, 0.5);
+      border: 3px solid var(--primary);
+    }
+    
+    .close-lightbox {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+    .close-lightbox:hover {
+      color: var(--primary);
+    }
+    
+    /* Fan Pages */
+    .fan-pages {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    
+    .fan-page-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 2rem;
+      width: 300px;
+      text-align: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .fan-page-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 42, 42, 0.1);
+      box-shadow: 0 15px 30px rgba(255, 42, 42, 0.2);
+      border-color: var(--primary);
+    }
+    
+    .fan-page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    
+    .visit-btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      transition: all 0.3s ease;
+      border: 2px solid var(--primary);
+    }
+    
+    .visit-btn:hover {
+      background: transparent;
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .logo {
+        font-size: 2.5rem;
+      }
+      
+      .tagline {
+        font-size: 1rem;
+      }
+      
+      .profile-pic {
+        width: 180px;
+        height: 180px;
+      }
+      
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+      
+      .lightbox-content {
+        width: 95%;
+      }
+      
+      .subscribe-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-animation"></div>
+  <div id="particles-js"></div>
+  
+  <!-- Header -->
+  <header>
+    <div class="logo">Z-Fam</div>
+    <div class="tagline">Zahra official fan page </div>
+  </header>
+  
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Profile Section -->
+    <section class="profile">
+      <img src="Zahra.jpeg" alt="Zahra" class="profile-pic">
+      <p class="bio">
+      	Welcome to Zfam official Fan page 
+       
+      </p>
+      
+      <div class="social-links">
+        <a href="https://www.instagram.com/bloodycum11/" class="social-btn instagram" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@zara11n?_t=ZS-8wiC51o7EzA&_r=1" class="social-btn tiktok" target="_blank">
+          <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="#" class="social-btn youtube" target="_blank">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="#" class="social-btn twitter" target="_blank">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="social-btn snapchat" target="_blank">
+          <i class="fab fa-snapchat-ghost"></i>
+        </a>
+        <a href="https://discord.gg/rfxr7yMu" class="social-btn discord" target="_blank">
+          <i class="fab fa-discord"></i>
+        </a>
+      </div>
+      
+      <!-- Add your link to the href attribute below -->
+      <a href="https://vt.tiktok.com/ZShETgXHs/" class="subscribe-btn" target="_blank">
+        Subscribe Now
+      </a>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section>
+      <h2 class="section-title">Moments & Creations</h2>
+      <div class="gallery">
+        <!-- Placeholder for videos 1-100 - just copy this div and increment the number -->
+        <div class="gallery-item video-item" data-video="Zara1.mp4">
+          <video poster="Zara1.png">
+            <source src="Zara1.mp4" type="video/mp4">
+          </video>
+          <div class="gallery-caption">video 1</div>
+        </div>
+        <div class="gallery-item video-item" data-video="Zara2.mp4">
+          <video poster="Zara2.png">
+            <source src="Zara2.mp4" type="video/mp4">
+          </video>
+          <div class="gallery-caption">Video 2</div>
+        </div>
+        <!-- Add more video placeholders as needed -->
+        
+        <!-- Image placeholders -->
+        <div class="gallery-item">
+          <img src="Zahra1.png" alt="Creative Work 1">
+          <div class="gallery-caption">Urban Aesthetic</div>
+        </div>
+        <div class="gallery-item">
+          <img src="Zahra2.jpeg" alt="Creative Work 2">
+          <div class="gallery-caption">Fashion Statement</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Fan Pages Section -->
+    <section>
+      <h2 class="section-title">Fan Pages</h2>
+      <div class="fan-pages">
+        <div class="fan-page-card">
+          <h3 class="fan-page-title">Elite Z-Fam</h3>
+          <p></p>
+          <a href="https://www.tiktok.com/@elitezfam?_t=ZS-8wi8apILAWG&_r=1" class="visit-btn" target="_blank">Visit Page</a>
+        </div>
+        
+        <div class="fan-page-card">
+          <h3 class="fan-page-title">Muneeb x Z-Fam</h3>
+          <p></p>
+          <a href="https://www.tiktok.com/@muneebxzfam?_t=ZS-8wi8WT6UXiK&_r=1" class="visit-btn" target="_blank">Visit Page</a>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <!-- Video Lightbox -->
+  <div class="lightbox" id="videoLightbox">
+    <div class="lightbox-content">
+      <span class="close-lightbox">&times;</span>
+      <video controls autoplay id="lightboxVideo">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Z-Fam. All rights reserved.
+  </footer>
+  
+  <!-- Particles.js for animated background -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Initialize particles.js
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        "particles": {
+          "number": {
+            "value": 80,
+            "density": {
+              "enable": true,
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#ff2a2a"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            },
+            "polygon": {
+              "nb_sides": 5
+            }
+          },
+          "opacity": {
+            "value": 0.5,
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 1,
+              "opacity_min": 0.1,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 3,
+            "random": true,
+            "anim": {
+              "enable": false,
+              "speed": 40,
+              "size_min": 0.1,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#ff6b6b",
+            "opacity": 0.4,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 2,
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+              "enable": true,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "grab"
+            },
+            "onclick": {
+              "enable": true,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "grab": {
+              "distance": 140,
+              "line_linked": {
+                "opacity": 1
+              }
+            },
+            "bubble": {
+              "distance": 400,
+              "size": 40,
+              "duration": 2,
+              "opacity": 8,
+              "speed": 3
+            },
+            "repulse": {
+              "distance": 200,
+              "duration": 0.4
+            },
+            "push": {
+              "particles_nb": 4
+            },
+            "remove": {
+              "particles_nb": 2
+            }
+          }
+        },
+        "retina_detect": true
+      });
+      
+      // Video Lightbox functionality
+      const videoItems = document.querySelectorAll('.video-item');
+      const lightbox = document.getElementById('videoLightbox');
+      const lightboxVideo = document.getElementById('lightboxVideo');
+      const closeLightbox = document.querySelector('.close-lightbox');
+      
+      videoItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const videoSrc = this.getAttribute('data-video');
+          lightboxVideo.src = videoSrc;
+          lightbox.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      
+      closeLightbox.addEventListener('click', function() {
+        lightbox.style.display = 'none';
+        lightboxVideo.pause();
+        document.body.style.overflow = 'auto';
+      });
+      
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+          lightbox.style.display = 'none';
+          lightboxVideo.pause();
+          document.body.style.overflow = 'auto';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
